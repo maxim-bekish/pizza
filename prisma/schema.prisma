@@ -1,0 +1,234 @@
+// client генератор для клиента
+generator client {
+  provider = "prisma-client-js"
+}
+
+// источник данных для бд
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+// модель пользователя
+model User {
+  id Int @id @default(autoincrement())
+
+  // полное имя
+  fullName String
+  // электронная почта
+  email    String   @unique
+  // пароль
+  password String
+  // роль
+  role     UserRole @default(USER)
+
+  // провайдер
+  provider   String?
+  // id провайдера
+  prociderId String?
+
+  // корзина
+  cart             Cart?
+  // заказы
+  orders           Order[]
+  // код подтверждения
+  verificationCode VerificationCode?
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель категории
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель продукта
+model Product {
+  id Int @id @default(autoincrement())
+
+  // название
+  name     String
+  // картинка
+  imageUrl String
+
+  // ингредиенты
+  ingredients Ingredient[]
+  // элементы
+  items       ProductItem[]
+
+  // категория
+  Category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель элемента
+model ProductItem {
+  id Int @id @default(autoincrement())
+
+  // цена
+  price     Int
+  // размер
+  size      Int?
+  // тип пиццы
+  pizzaType Int?
+
+  // элементы корзины
+  cartItems CartItem[]
+
+  // продукт
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+// модель ингредиента
+model Ingredient {
+  id Int @id @default(autoincrement())
+
+  // название
+  name     String
+  // цена
+  price    Int
+  // картинка
+  imageUrl String
+
+  // продукты
+  products  Product[]
+  // элементы
+  cartItems CartItem[]
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель корзины
+model Cart {
+  id Int @id @default(autoincrement())
+
+  // пользователь
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @unique
+
+  // элементы
+  items CartItem[]
+
+  // токен
+  token String
+
+  // общая сумма
+  totalAmount Int @default(0)
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель элемента корзины
+model CartItem {
+  id Int @id @default(autoincrement())
+
+  // элемент
+  productItem   ProductItem @relation(fields: [productItemId], references: [id])
+  productItemId Int
+
+  // корзина
+  cart   Cart @relation(fields: [cartId], references: [id])
+  cartId Int
+
+  // количество
+  quantity Int
+
+  // ингредиенты
+  ingradients Ingredient[]
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель заказа
+model Order {
+  id Int @id @default(autoincrement())
+
+  // пользователь
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  // токен
+  token String
+
+  // общая сумма
+  totalAmount Int
+  // статус
+  status      OrderStatus
+  // id платежа
+  paymentId   String?
+
+  // элементы
+  items Json
+
+  // полное имя
+  fullName String
+  // электронная почта
+  email    String
+  // телефон
+  phone    String
+  // адрес
+  address  String
+  // комментарий
+  comment  String?
+
+  // дата создания
+  createdAt DateTime @default(now())
+  // дата обновления
+  updatedAt DateTime @updatedAt
+}
+
+// модель кода подтверждения
+model VerificationCode {
+  id Int @id @default(autoincrement())
+
+  // пользователь
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
+
+  // код
+  code String @unique
+
+  // дата создания
+  createdAt DateTime @default(now())
+
+  @@unique([userId, code])
+}
+
+// перечисление статусов заказа
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELLED
+}
+
+// перечисление ролей
+enum UserRole {
+  USER
+  ADMIN
+}
