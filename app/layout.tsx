@@ -1,23 +1,23 @@
-import type { Metadata } from 'next'
-import { Nunito } from 'next/font/google'
+import type { Metadata } from 'next';
+import { Nunito } from 'next/font/google';
 
-import './globals.css'
-import { Header } from '@/components/shared/header'
+import './globals.css';
+import { Header } from '@/components/shared/header';
 
 const nunito = Nunito({
 	subsets: ['cyrillic'],
 	variable: '--font-nunito',
 	weight: ['400', '500', '600', '700', '800', '900'],
-})
+});
 
 export const metadata: Metadata = {
 	title: 'Pizza',
-}
+};
 
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode
+	children: React.ReactNode;
 }>) {
 	return (
 		<html lang='en'>
@@ -28,5 +28,5 @@ export default function RootLayout({
 				</main>
 			</body>
 		</html>
-	)
+	);
 }

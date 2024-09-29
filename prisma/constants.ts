@@ -14,18 +14,20 @@ export const categories = [
 	{
 		name: 'Напитки',
 	},
-]
+];
 
 export const ingredients = [
 	{
 		name: 'Сырный бортик',
 		price: 179,
-		imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/99f5cb91225b4875bd06a26d2e842106.png',
+		imageUrl:
+			'https://cdn.dodostatic.net/static/Img/Ingredients/99f5cb91225b4875bd06a26d2e842106.png',
 	},
 	{
 		name: 'Сливочная моцарелла',
 		price: 79,
-		imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/cdea869ef287426386ed634e6099a5ba.png',
+		imageUrl:
+			'https://cdn.dodostatic.net/static/Img/Ingredients/cdea869ef287426386ed634e6099a5ba.png',
 	},
 	{
 		name: 'Сыры чеддер и пармезан',
@@ -35,7 +37,8 @@ export const ingredients = [
 	{
 		name: 'Острый перец халапеньо',
 		price: 59,
-		imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/11ee95b6bfdf98fb88a113db92d7b3df.png',
+		imageUrl:
+			'https://cdn.dodostatic.net/static/Img/Ingredients/11ee95b6bfdf98fb88a113db92d7b3df.png',
 	},
 	{
 		name: 'Нежный цыпленок',
@@ -85,7 +88,8 @@ export const ingredients = [
 	{
 		name: 'Итальянские травы',
 		price: 39,
-		imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/370dac9ed21e4bffaf9bc2618d258734.png',
+		imageUrl:
+			'https://cdn.dodostatic.net/static/Img/Ingredients/370dac9ed21e4bffaf9bc2618d258734.png',
 	},
 	{
 		name: 'Сладкий перец',
@@ -100,9 +104,10 @@ export const ingredients = [
 	{
 		name: 'Митболы',
 		price: 79,
-		imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/b2f3a5d5afe44516a93cfc0d2ee60088.png',
+		imageUrl:
+			'https://cdn.dodostatic.net/static/Img/Ingredients/b2f3a5d5afe44516a93cfc0d2ee60088.png',
 	},
-].map((obj, index) => ({ id: index + 1, ...obj }))
+].map((obj, index) => ({ id: index + 1, ...obj }));
 
 export const products = [
 	{
@@ -190,4 +195,4 @@ export const products = [
 		imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp',
 		categoryId: 5,
 	},
-]
+];

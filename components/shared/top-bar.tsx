@@ -1,11 +1,10 @@
-import React from 'react'
-import { cn } from '@/lib/utils'
-import { Container } from './container'
-import { Categories } from './categories'
-import { SortPopup } from './sort-popup'
+import { cn } from '@/lib/utils';
+import { Container } from './container';
+import { Categories } from './categories';
+import { SortPopup } from './sort-popup';
 
 interface Props {
-	className?: string
+	className?: string;
 }
 
 export const TopBar: React.FC<Props> = ({ className }) => {
@@ -16,5 +15,5 @@ export const TopBar: React.FC<Props> = ({ className }) => {
 				<SortPopup />
 			</Container>
 		</div>
-	)
-}
+	);
+};

@@ -2,12 +2,12 @@ import { PrismaClient } from '@prisma/client';
 
 // Функция для создания экземпляра PrismaClient
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+	return new PrismaClient();
 };
 
 // Объявляем глобальную переменную для хранения экземпляра PrismaClient
 declare global {
-  var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>;
+	var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>;
 }
 
 // Используем существующий экземпляр PrismaClient или создаем новый

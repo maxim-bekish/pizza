@@ -1,15 +1,14 @@
-import Link from 'next/link'
-import React from 'react'
-import { Title } from './title'
-import { Button } from '../ui'
-import { Plus } from 'lucide-react'
+import Link from 'next/link';
+import { Title } from './title';
+import { Button } from '../ui';
+import { Plus } from 'lucide-react';
 
 interface Props {
-	id: number
-	name: string
-	price: number
-	imageUrl: string
-	className?: string
+	id: number;
+	name: string;
+	price: number;
+	imageUrl: string;
+	className?: string;
 }
 
 export const ProductCard: React.FC<Props> = ({ id, name, price, imageUrl, className }) => {
@@ -32,5 +31,5 @@ export const ProductCard: React.FC<Props> = ({ id, name, price, imageUrl, classN
 				</div>
 			</Link>
 		</div>
-	)
-}
+	);
+};
