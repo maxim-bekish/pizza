@@ -156,7 +156,7 @@ model CartItem {
   cartId Int
 
   // количество
-  quantity Int
+  quantity Int @default(1)
 
   // ингредиенты
   ingredients Ingredient[]

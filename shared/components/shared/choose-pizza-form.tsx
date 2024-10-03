@@ -13,20 +13,32 @@ interface Props {
 	name: string;
 	ingredients: Ingredient[];
 	items: ProductItem[];
-	onClickAddCard?: VoidFunction;
+	loading?: boolean;
+	onSubmit: (itemId: number, ingredients: number[]) => void;
 	className?: string;
 }
-
+/**
+ * Форма выбора ПИЦЦЫ
+ */
 export const ChoosePizzaForm: React.FC<Props> = ({
 	name,
 	items,
 	imageUrl,
 	ingredients,
-	onClickAddCard,
+	loading,
+	onSubmit,
 	className,
 }) => {
-	const { size, type, selectedIngredients, availableSizes, setSize, setType, addIngredient } =
-		usePizzaOptions(items);
+	const {
+		size,
+		type,
+		selectedIngredients,
+		availableSizes,
+		currentItemId,
+		setSize,
+		setType,
+		addIngredient,
+	} = usePizzaOptions(items);
 
 	const { totalPrice, textDetails } = getPizzaDetails(
 		type,
@@ -37,12 +49,9 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	);
 
 	const handleClickAdd = () => {
-		onClickAddCard?.();
-		console.log({
-			size,
-			type,
-			ingredients: selectedIngredients,
-		});
+		if (currentItemId) {
+			onSubmit(currentItemId, Array.from(selectedIngredients));
+		}
 	};
 
 	return (
@@ -83,6 +92,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 					</div>
 				</div>
 				<Button
+					loading={loading}
 					onClick={handleClickAdd}
 					className={'h-[55px] px-10 text-base rounded-[18px] w-full mt-10'}>
 					Добавить в корзину за {totalPrice}

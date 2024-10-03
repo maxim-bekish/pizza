@@ -22,7 +22,7 @@ export default async function ProductPage({ params: { id } }: { params: { id: st
 						incididunt ut labore et dolore magna aliqua.
 					</p>
 					<GroupVariants
-				
+						value='2'
 						items={[
 							{
 								name: 'Маленькая',
@@ -35,6 +35,7 @@ export default async function ProductPage({ params: { id } }: { params: { id: st
 							{
 								name: 'Большая',
 								value: '3',
+                disabled: true,
 							},
 						]}
 					/>

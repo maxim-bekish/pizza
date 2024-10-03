@@ -2,6 +2,13 @@ import { calcTotalPizzaPrice } from './calc-total-pizza-price';
 import { Ingredient, ProductItem } from '@prisma/client';
 import { mapPizzaType, PizzaSize, PizzaType } from '../constants/pizza';
 
+/**
+ * Given the type, size, items, ingredients and selectedIngredients of a pizza,
+ * returns an object with the following properties:
+ * - totalPrice: The total price of the pizza
+ * - textDetails: A string describing the pizza details, e.g. "20 см, традиционное тесто"
+ */
+
 export const getPizzaDetails = (
 	type: PizzaType,
 	size: PizzaSize,

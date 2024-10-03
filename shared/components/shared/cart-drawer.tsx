@@ -22,15 +22,23 @@ interface Props {
 }
 
 export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
-	const xxx = useCartStore(state => state);
+	const [items, totalAmount, fetchCartItems, updateItemQuantity, removeCartItem] = useCartStore(
+		state => [
+			state.items,
+			state.totalAmount,
+			state.fetchCartItems,
+			state.updateItemQuantity,
+			state.removeCartItem,
+		]
+	);
 
 	useEffect(() => {
-		xxx.fetchCartItems();
+		fetchCartItems();
 	}, []);
 
 	const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
 		const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
-		xxx.updateItemQuantity(id, newQuantity);
+		updateItemQuantity(id, newQuantity);
 	};
 
 	return (
@@ -40,15 +48,14 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 			<SheetContent className='flex flex-col justify-between pb-0 bg-[#f4f1ee]'>
 				<SheetHeader>
 					<SheetTitle>
-						В корзине <span className='font-bold'>{xxx.items.length} товара </span>
+						В корзине <span className='font-bold'>{items.length} товара </span>
 					</SheetTitle>
 				</SheetHeader>
 
 				<div className='-mx-6 mt-5 overflow-auto  flex-1'>
-					<div className='mb-2'>
-						{xxx.items.map(item => (
+					{items.map(item => (
+						<div key={item.id} className='mb-2'>
 							<CartDrawerItem
-								key={item.id}
 								id={item.id}
 								imageUrl={item.imageUrl}
 								details={
@@ -64,10 +71,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 								price={item.price}
 								quantity={item.quantity}
 								onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
-                onClickRemove={()=> xxx.removeCartItem(item.id)}
+								onClickRemove={() => removeCartItem(item.id)}
 							/>
-						))}
-					</div>
+						</div>
+					))}
 				</div>
 
 				<SheetFooter className='-mx-6 bg-white p-8'>
@@ -77,7 +84,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 								Итог
 								<div className='flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2' />
 							</span>
-							<span className='text-lg font-bold'>{xxx.totalAmount} ₽</span>
+							<span className='text-lg font-bold'>{totalAmount} ₽</span>
 						</div>
 						<Link href='/cart'>
 							<Button type='submit' className='w-full h-12 text-base'>

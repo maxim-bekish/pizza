@@ -21,6 +21,7 @@ export const CartDrawerItem: React.FC<Props> = ({
   onClickRemove,
 	className,
 }) => {
+
 	return (
 		<div className={cn('flex bg-white p-5 gap-6', className)}>
 			<CartItem.Image src={imageUrl} />

@@ -69,6 +69,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 		return NextResponse.json(updateUserCart);
 	} catch (error) {
 		console.log('[CART_PATCH] Server error', error);
-		return NextResponse.json({ message: 'Не удалось корзину' }, { status: 500 });
+		return NextResponse.json({ message: 'Не удалось удалить корзину' }, { status: 500 });
 	}
 }
