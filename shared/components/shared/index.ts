@@ -21,5 +21,6 @@ export { Title } from './title';
 export { TopBar } from './top-bar';
 export { CountIconButton } from './count-icon-button';
 export { CountButton } from './count-button';
+export { ProductForm } from './product-form';
 
 export * from './modals';

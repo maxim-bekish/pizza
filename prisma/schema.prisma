@@ -70,7 +70,7 @@ model Product {
   items       ProductItem[]
 
   // категория
-  Category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
   // дата создания
