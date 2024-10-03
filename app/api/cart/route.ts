@@ -50,10 +50,8 @@ export async function GET(req: NextRequest) {
 	}
 }
 
-
 export async function POST(req: NextRequest) {
-
-  try {
+	try {
 		let token = req.cookies.get('cartToken')?.value;
 		if (!token) {
 			token = crypto.randomUUID();
@@ -66,7 +64,11 @@ export async function POST(req: NextRequest) {
 			where: {
 				cartId: userCart.id,
 				productItemId: data.productItemId,
-				ingredients: { every: { id: { in: data.ingredients } } },
+				ingredients: {
+					every: {
+						id: { in: data.ingredients },
+					},
+				},
 			},
 		});
 
@@ -80,16 +82,16 @@ export async function POST(req: NextRequest) {
 					quantity: findCartItem.quantity + 1,
 				},
 			});
+		} else {
+			await prisma.cartItem.create({
+				data: {
+					cartId: userCart.id,
+					productItemId: data.productItemId,
+					quantity: 1,
+					ingredients: { connect: data.ingredients?.map(id => ({ id: id })) },
+				},
+			});
 		}
-		await prisma.cartItem.create({
-			data: {
-				cartId: userCart.id,
-				productItemId: data.productItemId,
-				quantity: 1,
-				ingredients: { connect: data.ingredients?.map(id => ({ id: id })) },
-			},
-		});
-
 		const updateUserCart = await updateCartTotalAmount(token);
 
 		const resp = NextResponse.json(updateUserCart);
