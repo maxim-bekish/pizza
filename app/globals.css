@@ -72,6 +72,15 @@ html {
 	}
 }
 
+.search-custom-input input {
+	@apply bg-background rounded-md;
+}
+.search-custom-input input:focus {
+  @apply border-input rounded-lg shadow-inner;
+  box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.075); /* Кастомная тень */
+}
+
+
 @layer base {
 	* {
 		@apply border-border;

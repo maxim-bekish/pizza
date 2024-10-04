@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Header } from '@/shared/components/shared';
 
 export const metadata: Metadata = {
-	title: 'Pizza',
+	title: 'Pizza | Главная',
   description: 'Вкуснее уже некуда',
 };
 
