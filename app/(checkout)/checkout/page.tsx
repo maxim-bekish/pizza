@@ -14,12 +14,17 @@ import {
 import { checkoutFormSchema, CheckoutFormValues } from '@/shared/constants';
 import { useCart } from '@/shared/hooks';
 import { cn } from '@/shared/lib/utils';
+import { createOrder } from '@/app/actions';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 interface Props {
 	className?: string;
 }
 
 export default function CheckoutPage({ className }: Props) {
+	const [submitting, setSubmitting] = useState(false);
+
 	const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
 
 	const form = useForm<CheckoutFormValues>({
@@ -39,8 +44,27 @@ export default function CheckoutPage({ className }: Props) {
 		updateItemQuantity(id, newQuantity);
 	};
 
-	const onSubmit = (data: CheckoutFormValues) => {
-		console.log(data);
+	const onSubmit = async (data: CheckoutFormValues) => {
+		try {
+			setSubmitting(true);
+			const url = await createOrder(data);
+
+			toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
+				icon: '✅',
+			});
+
+			if (url) {
+				location.href = url;
+			}
+
+			console.log(url);
+		} catch (error) {
+			console.log(error);
+			setSubmitting(false);
+			toast.error('Не удалось создать заказ', {
+				icon: '❌',
+			});
+		}
 	};
 
 	return (
@@ -55,7 +79,7 @@ export default function CheckoutPage({ className }: Props) {
 								onClickCountButton={onClickCountButton}
 								removeCartItem={removeCartItem}
 								items={items}
-                loading={loading}
+								loading={loading}
 							/>
 
 							<CheckoutPersonalForm className={loading ? 'opacity-40 pointer-events-none' : ''} />
@@ -64,7 +88,7 @@ export default function CheckoutPage({ className }: Props) {
 
 						{/* Правая часть */}
 						<div className='w-[450px]'>
-							<CheckoutSidebar totalAmount={totalAmount} loading={loading} />
+							<CheckoutSidebar totalAmount={totalAmount} loading={loading || submitting} />
 						</div>
 					</div>
 				</form>

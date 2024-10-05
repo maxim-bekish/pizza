@@ -1,6 +1,8 @@
+'use client';
+
 import { Controller, useFormContext } from 'react-hook-form';
 import { WhiteBlock, AddressInput, ErrorText } from '../';
-import { FormTextarea, FormInput } from '../form';
+import { FormTextarea } from '../form';
 
 interface Props {
 	className?: string;
@@ -22,7 +24,12 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
 						</div>
 					)}
 				/>
-				<FormTextarea name='comment' className='text-base' placeholder='Комментария к заказу' />
+				<FormTextarea
+					name='comment'
+					rows={5}
+					className='text-base '
+					placeholder='Комментария к заказу'
+				/>
 			</div>
 		</WhiteBlock>
 	);

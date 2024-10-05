@@ -31,7 +31,9 @@ export { Title } from './title';
 export { TopBar } from './top-bar';
 export { WhiteBlock } from './white-block';
 export { AddressInput } from './address-input';
+export { Providers } from './providers';
 
 export * from './checkout';
 export * from './form';
 export * from './modals';
+export * from './email-templates';

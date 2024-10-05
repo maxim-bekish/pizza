@@ -11,8 +11,6 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
 	required?: boolean;
 }
 
-
-
 export const FormTextarea: React.FC<Props> = ({ className, name, label, required, ...props }) => {
 	const {
 		register,
@@ -35,7 +33,7 @@ export const FormTextarea: React.FC<Props> = ({ className, name, label, required
 			</p>
 
 			<div className='relative'>
-				<Textarea className='h-12 text-md' {...register(name)} {...props} />
+				<Textarea className='h-12 text-md scrollbar' {...register(name)} {...props} />
 
 				{value && <ClearButton onClick={onClickClear} />}
 			</div>
