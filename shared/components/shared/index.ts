@@ -32,6 +32,7 @@ export { TopBar } from './top-bar';
 export { WhiteBlock } from './white-block';
 export { AddressInput } from './address-input';
 export { Providers } from './providers';
+export { ProfileButton } from './profile-button';
 
 export * from './checkout';
 export * from './form';

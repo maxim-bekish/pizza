@@ -28,7 +28,7 @@ model User {
   // провайдер
   provider   String?
   // id провайдера
-  prociderId String?
+  providerId String?
 
   // корзина
   cart             Cart?

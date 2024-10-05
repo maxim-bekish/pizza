@@ -1,13 +1,11 @@
 'use client';
 
 import { cn } from '@/shared/lib/utils';
-import { User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '../ui';
-import { SearchInput, Container, CartButton } from './';
+import { SearchInput, Container, CartButton, ProfileButton, AuthModal } from './';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface Props {
@@ -16,13 +14,14 @@ interface Props {
 	className?: string;
 }
 export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, className }) => {
-	const searchParams = useSearchParams();
+	const [openAuthModal, setOpenAuthModal] = useState(false);
 
+	const searchParams = useSearchParams();
 	useEffect(() => {
 		if (searchParams.has('paid')) {
 			setTimeout(() => {
 				toast.success('Заказ оплачен! Информация отправлена на почту');
-        // TODO убрать paid
+				// TODO убрать paid
 			}, 500);
 		}
 	}, []);
@@ -50,11 +49,10 @@ export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, clas
 				)}
 
 				{/* Правая часть */}
-				<div className='flex items-center gap-1'>
-					<Button variant={'outline'} className='flex items-center gap-3'>
-						<User size={16} />
-						Войти
-					</Button>
+				<div className='flex items-center gap-3'>
+					<AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+					<ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 					{hasCart && <CartButton />}
 				</div>
 			</Container>
