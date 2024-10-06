@@ -16,7 +16,9 @@ import { useCart } from '@/shared/hooks';
 import { cn } from '@/shared/lib/utils';
 import { createOrder } from '@/app/actions';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { Api } from '@/shared/services/api-client';
 
 interface Props {
 	className?: string;
@@ -24,8 +26,8 @@ interface Props {
 
 export default function CheckoutPage({ className }: Props) {
 	const [submitting, setSubmitting] = useState(false);
-
 	const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
+	const { data: session } = useSession();
 
 	const form = useForm<CheckoutFormValues>({
 		resolver: zodResolver(checkoutFormSchema),
@@ -38,6 +40,21 @@ export default function CheckoutPage({ className }: Props) {
 			comment: '',
 		},
 	});
+
+	useEffect(() => {
+		async function fetchUserInfo() {
+			const data = await Api.auth.getMe();
+			const [firstName, lastName] = data.fullName.split(' ');
+
+			form.setValue('firstName', firstName);
+			form.setValue('lastName', lastName);
+			form.setValue('email', data.email);
+		}
+
+		if (session) {
+			fetchUserInfo();
+		}
+	}, [session]);
 
 	const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
 		const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;

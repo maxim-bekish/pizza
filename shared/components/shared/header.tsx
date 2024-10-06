@@ -4,7 +4,7 @@ import { cn } from '@/shared/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SearchInput, Container, CartButton, ProfileButton, AuthModal } from './';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams,useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -14,15 +14,27 @@ interface Props {
 	className?: string;
 }
 export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, className }) => {
+	const router = useRouter();
 	const [openAuthModal, setOpenAuthModal] = useState(false);
 
 	const searchParams = useSearchParams();
 	useEffect(() => {
+		let toastMessage = '';
+
 		if (searchParams.has('paid')) {
+			toastMessage = 'Заказ оплачен! Информация отправлена на почту';
+		}
+		if (searchParams.has('verified')) {
+			toastMessage = 'Почта успешно подтверждена';
+		}
+
+		if (toastMessage) {
 			setTimeout(() => {
-				toast.success('Заказ оплачен! Информация отправлена на почту');
-				// TODO убрать paid
-			}, 500);
+				router.replace('/');
+				toast.success(toastMessage, {
+					duration: 3000,
+				});
+			}, 1000);
 		}
 	}, []);
 

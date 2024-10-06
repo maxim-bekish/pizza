@@ -5,6 +5,7 @@ import { Dialog, DialogContent } from '@/shared/components/ui/dialog';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { LoginForm } from './forms/login-form';
+import { RegisterForm } from './forms/register-form';
 
 interface Props {
 	open: boolean;
@@ -25,9 +26,11 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
 	return (
 		<Dialog open={open} onOpenChange={handleClosed}>
 			<DialogContent className='w-[450px] bg-white p-10'>
-			{
-        type === 'login' ? <LoginForm onClose={handleClosed} /> : <h1>Регистрация</h1>
-      }
+				{type === 'login' ? (
+					<LoginForm onClose={handleClosed} />
+				) : (
+					<RegisterForm onClose={handleClosed} />
+				)}
 				<hr />
 				<div className='flex gap-2'>
 					<Button

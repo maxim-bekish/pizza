@@ -17,13 +17,13 @@ model User {
   // полное имя
   fullName String
   // электронная почта
-  email    String   @unique
+  email    String    @unique
   // пароль
   password String
   // роль
-  role     UserRole @default(USER)
+  role     UserRole  @default(USER)
   // статуст верефикации
-  verified DateTime
+  verified DateTime?
 
   // провайдер
   provider   String?
@@ -214,12 +214,32 @@ model VerificationCode {
   userId Int  @unique
 
   // код
-  code String @unique
+  code String
 
   // дата создания
   createdAt DateTime @default(now())
 
   @@unique([userId, code])
+}
+
+model Story {
+  id              Int    @id @default(autoincrement())
+  previewImageUrl String
+
+  items StoryItem[]
+
+  createdAt DateTime @default(now())
+}
+
+model StoryItem {
+  id Int @id @default(autoincrement())
+
+  storyId Int
+  story   Story @relation(fields: [storyId], references: [id])
+
+  sourceUrl String
+
+  createdAt DateTime @default(now())
 }
 
 // перечисление статусов заказа
