@@ -3,10 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	try {
-    // TODO
-		// const code = req.nextUrl.searchParams.get('code');
-		const code = '';
-
+		const code = req.nextUrl.searchParams.get('code'); // Используем nextUrl для доступа к параметрам
+		console.log(999, code);
 		if (!code) {
 			return NextResponse.json({ error: 'Неверный код' }, { status: 400 });
 		}
@@ -39,5 +37,6 @@ export async function GET(req: NextRequest) {
 		return NextResponse.redirect(new URL('/?verified', req.url));
 	} catch (error) {
 		console.error('Error [VERIFY_GET] server error ', error);
+		return NextResponse.json({ error: 'Ошибка сервера' }, { status: 500 });
 	}
 }

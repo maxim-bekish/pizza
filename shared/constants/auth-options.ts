@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
 				email: { label: 'Email', type: 'text' },
 				password: { label: 'Password', type: 'password' },
 			},
-			async authorize(credentials, req) {
+			async authorize(credentials) {
 				if (!credentials) return null;
 
 				const values = {
@@ -66,6 +66,8 @@ export const authOptions: AuthOptions = {
 	callbacks: {
 		async signIn({ user, account }) {
 			try {
+        console.log('signIn', user);
+        console.log('signIn', account);
 				// Если пользователь пытается авторизоваться с помощью  логина и пароля  то мы его авторизуем
 				if (account?.provider === 'credentials') return true;
 
@@ -117,6 +119,9 @@ export const authOptions: AuthOptions = {
 		},
 
 		async jwt({ token }) {
+
+      console.log('jwt', token);
+
 			if (!token.email) return token;
 
 			const findUser = await prisma.user.findFirst({
@@ -135,8 +140,11 @@ export const authOptions: AuthOptions = {
 			return token;
 		},
 		session({ session, token }) {
+      console.log('session', session);
+      console.log('session', token);
+
 			if (session?.user) {
-				session.user.id = String(token.id);
+				session.user.id = token.id;
 				session.user.role = token.role;
 			}
 			return session;
