@@ -5,7 +5,6 @@ import { useCategoryStore } from '@/shared/store/category';
 import { useEffect, useRef } from 'react';
 import { useIntersection } from 'react-use';
 import { ProductCard, Title } from './';
-import { Product } from '@prisma/client';
 import { ProductWithRelations } from '@/@types/prisma';
 
 interface Props {

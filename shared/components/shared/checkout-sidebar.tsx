@@ -1,4 +1,3 @@
-import { cn } from '@/shared/lib/utils';
 import { WhiteBlock } from './white-block';
 import { CheckoutItemDetails } from './checkout-item-details';
 import { ArrowRight, Package, Percent, Truck } from 'lucide-react';
@@ -10,10 +9,9 @@ const DELIVERY_PRICE = 250;
 interface Props {
 	totalAmount: number;
 	loading: boolean;
-	className?: string;
 }
 
-export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, className }) => {
+export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading }) => {
 	const vatPrice = (totalAmount * VAT) / 100;
 	const totalPrice = totalAmount + vatPrice + DELIVERY_PRICE;
 

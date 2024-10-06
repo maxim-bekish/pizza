@@ -13,18 +13,13 @@ import {
 } from '@/shared/components';
 import { checkoutFormSchema, CheckoutFormValues } from '@/shared/constants';
 import { useCart } from '@/shared/hooks';
-import { cn } from '@/shared/lib/utils';
 import { createOrder } from '@/app/actions';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Api } from '@/shared/services/api-client';
 
-interface Props {
-	className?: string;
-}
-
-export default function CheckoutPage({ className }: Props) {
+export default function CheckoutPage() {
 	const [submitting, setSubmitting] = useState(false);
 	const { items, totalAmount, updateItemQuantity, removeCartItem, loading } = useCart();
 	const { data: session } = useSession();

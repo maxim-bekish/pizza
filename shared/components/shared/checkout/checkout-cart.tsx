@@ -1,4 +1,3 @@
-import { cn } from '@/shared/lib/utils';
 import { WhiteBlock, CheckoutItem, CheckoutItemSkeleton } from '../';
 import { getCartItemDetails } from '@/shared/lib';
 import { PizzaSize, PizzaType } from '@/shared/constants/pizza';
@@ -9,7 +8,6 @@ interface Props {
 	onClickCountButton: (id: number, quantity: number, type: 'plus' | 'minus') => void;
 	removeCartItem: (id: number) => void;
 	loading?: boolean;
-	className?: string;
 }
 
 export const CheckoutCart: React.FC<Props> = ({
@@ -17,7 +15,6 @@ export const CheckoutCart: React.FC<Props> = ({
 	onClickCountButton,
 	removeCartItem,
 	loading,
-	className,
 }) => {
 	return (
 		<WhiteBlock title='1. Корзина'>

@@ -7,7 +7,7 @@ interface Props {
 
 export const CheckoutPersonalForm: React.FC<Props> = ({ className }) => {
 	return (
-		<WhiteBlock title='2. Персональная информация' className={className}>
+		<WhiteBlock title='2. Персональная информация' className={cn(className)}>
 			<div className='grid grid-cols-2 gap-5'>
 				<FormInput name='firstName' className='text-base' placeholder='Имя' />
 				<FormInput name='lastName' className='text-base' placeholder='Фамилия' />
